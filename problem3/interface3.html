@@ -3,10 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Cálculo de imposto sobre produto</title>
+    <title>Conversão de moeda</title>
+    <style>
+      
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        
+        .tax-card {
+            background: #D8BFD8;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 360px;
+        }
+
+        h2 {
+            color: #2c3e50;
+            margin-top: 0;
+            text-align: center;
+            border-bottom: 2px solid #000000;
+            padding-bottom: 10px;
+        }
+
+        .input-box {
+            margin: 20px 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #34495e;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e0;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #e67e22;
+            box-shadow: 0 0 5px rgba(230, 126, 34, 0.3);
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color:	#9370DB;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background-color:#9370DB;
+        }
+
+        #painelResultado {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #FFF8DC;
+            border: 1px dashed 	#D8BFD8;
+            border-radius: 8px;
+            display: none; 
+        }
+
+        .res-line {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            color: #4a5568;
+        }
+
+        .total-line {
+            border-top: 1px solid 	#D8BFD8;
+            margin-top: 10px;
+            padding-top: 10px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #2c3e50;
+        }
+    </style>
 </head>
 <body>
-    <script src="logica3.js"></script>
+
+    <div class="tax-card">
+        <h2>Calculadora Fiscal</h2>
+        
+        <div class="input-box">
+            <label for="precoOriginal">Preço do Produto (R$):</label>
+            <input type="number" id="precoOriginal" placeholder="0.00" step="0.01">
+        </div>
+
+        <button onclick="processarImposto()">Calcular Preço Final</button>
+
+        <div id="painelResultado">
+            </div>
+    </div>
+
+    <script>
+        function calcularImposto(precoOriginal) {
+            let percentualImposto = 0.12;
+            let valorImposto = precoOriginal * percentualImposto;
+            let precoFinal = precoOriginal + valorImposto;
+
+            return {
+                precoOriginal: precoOriginal,
+                percentualImposto: percentualImposto,
+                valorImposto: valorImposto,
+                precoFinal: precoFinal
+            };
+        }
+
+        function processarImposto() {
+            const inputPreco = document.getElementById('precoOriginal');
+            const display = document.getElementById('painelResultado');
+            
+            const valorDigitado = parseFloat(inputPreco.value);
+
+            if (isNaN(valorDigitado) || valorDigitado <= 0) {
+                alert("Por favor, informe um valor válido para o preço.");
+                return;
+            }
+
+            const resultado = calcularImposto(valorDigitado);
+
+            const formatar = (v) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+            display.style.display = 'block';
+            display.innerHTML = `
+                <div class="res-line"><span>Preço Original:</span> <span>${formatar(resultado.precoOriginal)}</span></div>
+                <div class="res-line"><span>Imposto (12%):</span> <span>${formatar(resultado.valorImposto)}</span></div>
+                <div class="res-line total-line"><span>Preço Final:</span> <span>${formatar(resultado.precoFinal)}</span></div>
+            `;
+        }
+    </script>
+
 </body>
 </html>

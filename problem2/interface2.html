@@ -3,10 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Conversão de moeda</title>
+    <title>Conversor de Moedas USD/BRL</title>
+    <style>
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color:#87CEEB;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 350px;
+        }
+
+        h2 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .campo {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box; 
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: 	#A52A2A;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #B22222;
+        }
+
+        #resultadoGeral {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e8f6f3;
+            border-radius: 6px;
+            color: #008080;
+            display: none; 
+            line-height: 1.6;
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid #d1d8e0;
+            margin: 10px 0;
+        }
+    </style>
 </head>
 <body>
-    <script src="logica2.js"></script>
+
+    <div class="container">
+        <h2>Conversor de Dólar</h2>
+        
+        <div class="campo">
+            <label for="usd">Valor em Dólar (US$):</label>
+            <input type="number" id="usd"step="0.01">
+        </div>
+
+        <div class="campo">
+            <label for="cotacao">Cotação (R$):</label>
+            <input type="number" id="cotacao" step="0.01">
+        </div>
+
+        <button onclick="processarConversao()">Converter para Real</button>
+
+        <div id="resultadoGeral"></div>
+    </div>
+
+    <script>
+    
+        function converterMoeda(valorUSD, cotacao) {
+            let valorBRL = valorUSD * cotacao;
+            return {
+                valorUSD: valorUSD,
+                cotacao: cotacao,
+                valorBRL: valorBRL
+            };
+        }
+
+        function processarConversao() {
+       
+            const usdInput = document.getElementById('usd').value;
+            const cotacaoInput = document.getElementById('cotacao').value;
+            const display = document.getElementById('resultadoGeral');
+
+            if (usdInput === "" || cotacaoInput === "") {
+                alert("Por favor, preencha os dois campos.");
+                return;
+            }
+
+            const res = converterMoeda(Number(usdInput), Number(cotacaoInput));
+
+            display.style.display = 'block';
+            display.innerHTML = `
+                <strong>Resumo:</strong><br>
+                Valor USD: US$ ${res.valorUSD.toFixed(2)}<br>
+                Cotação: R$ ${res.cotacao.toFixed(2)}<br>
+                <hr>
+                <strong>Total em Reais: R$ ${res.valorBRL.toFixed(2)}</strong>
+            `;
+        }
+    </script>
+
 </body>
 </html>

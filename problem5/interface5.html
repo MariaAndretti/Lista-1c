@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Divisão de lucro entre sócios</title>
+    <style>
+    
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: #eef2f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .panel-card {
+            background: #8FBC8F;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 380px;
+            border-top: 5px solid 	#556B2F;
+        }
+
+        h2 {
+            color:#1C1C1C;
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #363636;
+            font-size: 0.85rem;
+            margin-bottom: 25px;
+        }
+
+        .input-area {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #363636;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e0;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            box-sizing: border-box;
+            background-color: #f8fafc;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #2b6cb0;
+            background-color: #fff;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #556B2F;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background-color:#556B2F;
+        }
+
+        /* Resultados */
+        #resultadoDivisao {
+            margin-top: 25px;
+            padding: 15px;
+            background-color: #f7fafc;
+            border-radius: 8px;
+            display: none; 
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #edf2f7;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .label-text {
+            color: #4a5568;
+            font-size: 0.9rem;
+        }
+
+        .value-text {
+            font-weight: 700;
+            color: #2d3748;
+        }
+
+        .highlight-value {
+            color: #2f855a;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="panel-card">
+        <h2>Distribuição de Lucros</h2>
+        <p class="subtitle">Divisão igualitária entre 3 sócios</p>
+        
+        <div class="input-area">
+            <label for="lucroTotal">Lucro Total da Empresa (R$)</label>
+            <input type="number" id="lucroTotal" placeholder="0,00" step="0.01">
+        </div>
+
+        <button id="btnDividir">Calcular Repasse</button>
+
+        <div id="resultadoDivisao">
+            <div class="info-row">
+                <span class="label-text">Lucro Total:</span>
+                <span class="value-text" id="resTotal"></span>
+            </div>
+            <div class="info-row">
+                <span class="label-text">Sócios:</span>
+                <span class="value-text">3</span>
+            </div>
+            <div class="info-row">
+                <span class="label-text">Valor por Sócio:</span>
+                <span class="value-text highlight-value" id="resIndividual"></span>
+            </div>
+        </div>
+    </div>
+
+    <script src="exercicio-05.js"></script>
+</body>
+</html>
